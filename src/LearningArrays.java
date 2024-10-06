@@ -34,8 +34,15 @@ public class LearningArrays {
         int ans4 = findLargestElement(arr);
         System.out.println("findLargestElement: " + ans4);
 
-        int ans5 = findSecondLargest(arr);
+        int ans5 = findSecondLargest(arr, 7);
         System.out.println("findSecondLargestElement: " + ans5);
+
+        boolean ans6 = checkArrayIsSorted(arr);
+        System.out.println("checkArrayIsSorted: " + ans6);
+
+        int arr3[] = {1, 2, 3, 4, 5};
+        reverseArray(arr3);
+        System.out.println("reverseArray: " + Arrays.toString(arr3));
     }
 
     /*
@@ -131,5 +138,30 @@ public class LearningArrays {
         }
 
         return res;
+    }
+
+    public static boolean checkArrayIsSorted(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[i-1]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Average Time complexity: Theta(n)
+    // Aux. space: Theta(1)
+    public static void reverseArray(int[] arr) {
+        int low = 0, high = arr.length - 1;
+
+        while (low < high) {
+            int temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+
+            low++;
+            high--;
+        }
     }
 }
