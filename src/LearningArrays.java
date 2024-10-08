@@ -43,6 +43,16 @@ public class LearningArrays {
         int arr3[] = {1, 2, 3, 4, 5};
         reverseArray(arr3);
         System.out.println("reverseArray: " + Arrays.toString(arr3));
+
+        int arr4[] = {1, 1, 2, 2, 3, 3, 4, 5};
+        int ans7 = removeDuplicatesFromSortedArray(arr4, arr4.length);
+        System.out.println("removeDuplicatesFromSortedArray (Naive): " + ans7);
+
+        int arr5[] = {1, 1, 2, 2, 3, 3, 4, 5};
+        int ans8 = removeDupsFromSortedArray(arr5, arr5.length);
+        System.out.println("removeDupsFromSortedArray (Efficient): " + ans8);
+
+
     }
 
     /*
@@ -163,5 +173,44 @@ public class LearningArrays {
             low++;
             high--;
         }
+    }
+
+    // Remove duplicates from sorted array (Naive Method)
+    /*
+        Time Complexity: O(n)
+        Space Complexity: O(n)
+    */
+    public static int removeDuplicatesFromSortedArray(int[] arr, int n) {
+        int[] temp = new int[n];
+        temp[0] = arr[0];
+        int res = 1;
+
+        for (int i = 1; i < n; i++) {
+            if (arr[i] != temp[res-1]) {
+                temp[res] = arr[i];
+                res++;
+            }
+        }
+
+        return res;
+    }
+
+    // Remove duplicates from sorted array (Efficient method)
+    /*
+        Time complexity: O(n)
+        Space complexity: O(1)
+    */
+    public static int removeDupsFromSortedArray(int[] arr, int n) {
+        int res = 1;
+
+        for (int i = 1; i < n; i++) {
+            if (arr[i] != arr[res - 1]) {
+                arr[res] = arr[i];
+                res++;
+            }
+            arr[i] = 0;
+        }
+
+        return res;
     }
 }
