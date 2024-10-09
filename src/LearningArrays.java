@@ -59,6 +59,14 @@ public class LearningArrays {
         int arr7[] = {0, 1, 0, 9, 10};
         moveZerosToEndEfficientMethod(arr7);
         System.out.println("moveZerosToEndEfficientMethod: " + Arrays.toString(arr7));
+
+        int arr8[] = {1, 2, 3, 4, 5, 6};
+        leftRotateByDTimesNaiveMethod(arr8, 2);
+        System.out.println("leftRotateByDTimesNaiveMethod: " + Arrays.toString(arr8));
+
+        int arr9[] = {1, 2, 3, 4, 5, 6};
+        leftRotateByDTimesBetterMethod(arr9, 2);
+        System.out.println("leftRotateByDTimesBetterMethod: " + Arrays.toString(arr9));
     }
 
     /*
@@ -270,5 +278,36 @@ public class LearningArrays {
         }
 
         arr[n - 1] = temp;
+    }
+
+    /*
+        Time complexity: O(n*d)
+        Space complexity: Theta(1)
+    */
+    public static void leftRotateByDTimesNaiveMethod(int[] arr, int d) {
+        for (int i = 0; i < d; i++) {
+            leftRotateByOne(arr);
+        }
+    }
+
+    /*
+        Time complexity: Theta(n)
+        Space complexity: Theta(d)
+    */
+    public static void leftRotateByDTimesBetterMethod(int[] arr, int d) {
+        int[] temp = new int[d];
+        int n = arr.length;
+
+        for (int i = 0; i < d; i++) {
+            temp[i] = arr[i];
+        }
+
+        for (int i = d; i < n; i++) {
+            arr[i-d] = arr[i];
+        }
+
+        for (int i = 0; i < d; i++) {
+            arr[n - d + i] = temp[i];
+        }
     }
 }
