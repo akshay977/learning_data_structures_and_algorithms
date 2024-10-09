@@ -52,7 +52,13 @@ public class LearningArrays {
         int ans8 = removeDupsFromSortedArray(arr5, arr5.length);
         System.out.println("removeDupsFromSortedArray (Efficient): " + ans8);
 
+        int arr6[] = {0, 2, 0, 3, 4};
+        moveZerosToEndNaiveMethod(arr6);
+        System.out.println("moveZerosToEndNaiveMethod: " + Arrays.toString(arr6));
 
+        int arr7[] = {0, 1, 0, 9, 10};
+        moveZerosToEndEfficientMethod(arr7);
+        System.out.println("moveZerosToEndEfficientMethod: " + Arrays.toString(arr7));
     }
 
     /*
@@ -212,5 +218,57 @@ public class LearningArrays {
         }
 
         return res;
+    }
+
+    /*
+        Naive Method: move zeros to end
+        Time complexity: O(n^2)
+    */
+    public static void moveZerosToEndNaiveMethod(int[] arr) {
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 0) {
+                for (int j = i+1; j < n; j++) {
+                    if (arr[j] != 0) {
+                        arr[i] = arr[j];
+                        arr[j] = 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+        Efficient Method: Move zeros to end
+        Time complexity: O(n)
+    */
+    public static void moveZerosToEndEfficientMethod(int[] arr) {
+        int count = 0;
+        // 1, 2, 0, 0, 4
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                int temp = arr[i];
+                arr[i] = arr[count];
+                arr[count] = temp;
+                count++;
+            }
+        }
+    }
+
+    /*
+        Time complexity: O(n)
+        Space complexity: Theta(1)
+    */
+    public static void leftRotateByOne(int[] arr) {
+        int temp = arr[0];
+        int n = arr.length;
+
+        for (int i = 1; i < n; i++) {
+            arr[i-1] = arr[i];
+        }
+
+        arr[n - 1] = temp;
     }
 }
