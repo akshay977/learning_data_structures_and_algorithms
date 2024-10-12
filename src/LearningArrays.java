@@ -31,28 +31,57 @@ public class LearningArrays {
         // int ans3 = deleteElement(arr, 7, 8);
         // System.out.println("delete ans: " + ans3 + " " + Arrays.toString(arr));
 
-        int ans4 = findLargestElement(arr);
-        System.out.println("findLargestElement: " + ans4);
+//        int ans4 = findLargestElement(arr);
+//        System.out.println("findLargestElement: " + ans4);
+//
+//        int ans5 = findSecondLargest(arr, 7);
+//        System.out.println("findSecondLargestElement: " + ans5);
+//
+//        boolean ans6 = checkArrayIsSorted(arr);
+//        System.out.println("checkArrayIsSorted: " + ans6);
+//
+//        int arr3[] = {1, 2, 3, 4, 5};
+//        reverseArray(arr3);
+//        System.out.println("reverseArray: " + Arrays.toString(arr3));
+//
+//        int arr4[] = {1, 1, 2, 2, 3, 3, 4, 5};
+//        int ans7 = removeDuplicatesFromSortedArray(arr4, arr4.length);
+//        System.out.println("removeDuplicatesFromSortedArray (Naive): " + ans7);
+//
+//        int arr5[] = {1, 1, 2, 2, 3, 3, 4, 5};
+//        int ans8 = removeDupsFromSortedArray(arr5, arr5.length);
+//        System.out.println("removeDupsFromSortedArray (Efficient): " + ans8);
+//
+//        int arr6[] = {0, 2, 0, 3, 4};
+//        moveZerosToEndNaiveMethod(arr6);
+//        System.out.println("moveZerosToEndNaiveMethod: " + Arrays.toString(arr6));
+//
+//        int arr7[] = {0, 1, 0, 9, 10};
+//        moveZerosToEndEfficientMethod(arr7);
+//        System.out.println("moveZerosToEndEfficientMethod: " + Arrays.toString(arr7));
+//
+//        int arr8[] = {1, 2, 3, 4, 5, 6};
+//        leftRotateByDTimesNaiveMethod(arr8, 2);
+//        System.out.println("leftRotateByDTimesNaiveMethod: " + Arrays.toString(arr8));
+//
+//        int arr9[] = {1, 2, 3, 4, 5, 6};
+//        leftRotateByDTimesBetterMethod(arr9, 2);
+//        System.out.println("leftRotateByDTimesBetterMethod: " + Arrays.toString(arr9));
+//
+//        int arr10[] = {1, 2, 3, 4, 5, 6};
+//        leftRotateByDTimesEfficientMethod(arr10, 2);
+//        System.out.println("leftRotateByDTimesEfficientMethod: " + Arrays.toString(arr10));
 
-        int ans5 = findSecondLargest(arr, 7);
-        System.out.println("findSecondLargestElement: " + ans5);
+        int arr11[] = {7, 10, 14, 3, 6, 5, 2};
+//        printLeadersInArrayNaiveMethod(arr11);
+//        printLeadersInArrayEfficientMethod(arr11);
 
-        boolean ans6 = checkArrayIsSorted(arr);
-        System.out.println("checkArrayIsSorted: " + ans6);
+        int ans9 = maxDiffNaiveMethod(arr11);
+        System.out.println("maxDiffNaiveMethod: " + ans9);
+//        maxDiffEfficientMethod(arr11);
 
-        int arr3[] = {1, 2, 3, 4, 5};
-        reverseArray(arr3);
-        System.out.println("reverseArray: " + Arrays.toString(arr3));
-
-        int arr4[] = {1, 1, 2, 2, 3, 3, 4, 5};
-        int ans7 = removeDuplicatesFromSortedArray(arr4, arr4.length);
-        System.out.println("removeDuplicatesFromSortedArray (Naive): " + ans7);
-
-        int arr5[] = {1, 1, 2, 2, 3, 3, 4, 5};
-        int ans8 = removeDupsFromSortedArray(arr5, arr5.length);
-        System.out.println("removeDupsFromSortedArray (Efficient): " + ans8);
-
-
+        int ans10 = maxDiffEfficientMethod(arr11);
+        System.out.println("maxDiffEfficientMethod: " + ans10);
     }
 
     /*
@@ -209,6 +238,180 @@ public class LearningArrays {
                 res++;
             }
             arr[i] = 0;
+        }
+
+        return res;
+    }
+
+    /*
+        Naive Method: move zeros to end
+        Time complexity: O(n^2)
+    */
+    public static void moveZerosToEndNaiveMethod(int[] arr) {
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 0) {
+                for (int j = i+1; j < n; j++) {
+                    if (arr[j] != 0) {
+                        arr[i] = arr[j];
+                        arr[j] = 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+        Efficient Method: Move zeros to end
+        Time complexity: O(n)
+    */
+    public static void moveZerosToEndEfficientMethod(int[] arr) {
+        int count = 0;
+        // 1, 2, 0, 0, 4
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                int temp = arr[i];
+                arr[i] = arr[count];
+                arr[count] = temp;
+                count++;
+            }
+        }
+    }
+
+    /*
+        Time complexity: O(n)
+        Space complexity: Theta(1)
+    */
+    public static void leftRotateByOne(int[] arr) {
+        int temp = arr[0];
+        int n = arr.length;
+
+        for (int i = 1; i < n; i++) {
+            arr[i-1] = arr[i];
+        }
+
+        arr[n - 1] = temp;
+    }
+
+    /*
+        Time complexity: O(n*d)
+        Space complexity: Theta(1)
+    */
+    public static void leftRotateByDTimesNaiveMethod(int[] arr, int d) {
+        for (int i = 0; i < d; i++) {
+            leftRotateByOne(arr);
+        }
+    }
+
+    /*
+        Time complexity: Theta(n)
+        Space complexity: Theta(d)
+    */
+    public static void leftRotateByDTimesBetterMethod(int[] arr, int d) {
+        int[] temp = new int[d];
+        int n = arr.length;
+
+        for (int i = 0; i < d; i++) {
+            temp[i] = arr[i];
+        }
+
+        for (int i = d; i < n; i++) {
+            arr[i-d] = arr[i];
+        }
+
+        for (int i = 0; i < d; i++) {
+            arr[n - d + i] = temp[i];
+        }
+    }
+
+    /*
+        Time complexity: O(n)
+        Space complexity: O(1)
+    */
+    public static void leftRotateByDTimesEfficientMethod(int[] arr, int d) {
+        int n = arr.length;
+
+        reverseArray(arr, 0, d - 1);
+        reverseArray(arr, d, n - 1);
+        reverseArray(arr, 0, n - 1);
+    }
+
+    public static void reverseArray(int[] arr, int low, int high) {
+        while (low < high) {
+            int temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+
+            low++;
+            high--;
+        }
+    }
+
+    public static void printLeadersInArrayNaiveMethod(int[] arr) {
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            boolean flag = true;
+
+            for (int j = i+1; j < n; j++) {
+                if (arr[j] > arr[i]) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag == true) {
+                System.out.println(arr[i]);
+            }
+        }
+    }
+
+    public static void printLeadersInArrayEfficientMethod(int[] arr) {
+        int n = arr.length;
+        int curr_ldr = arr[n - 1];
+        System.out.println(curr_ldr);
+
+        for (int i = n - 2; i >= 0; i--) {
+            if (arr[i] > curr_ldr) {
+                curr_ldr = arr[i];
+                System.out.println(curr_ldr);
+            }
+        }
+    }
+
+    /*
+        Max difference of arr[j] - arr[i] such that j > i
+        Time complexity: O (n^2)
+        Space complexity: O(1)
+    */
+    public static int maxDiffNaiveMethod(int[] arr) {
+        int n = arr.length;
+        int res = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+                res = Math.max(res, arr[j] - arr[i]);
+            }
+        }
+
+        return res;
+    }
+
+    /*
+        Max difference of arr[j] - arr[i] such that j > i
+        Time complexity: O (n)
+        Space complexity: O(1)
+    */
+    public static int maxDiffEfficientMethod(int[] arr) {
+        int res = arr[1] - arr[0];
+        int minValue = arr[0];
+        int n = arr.length;
+
+        for (int j = 1; j < n; j++) {
+            res = Math.max(res, arr[j] - minValue);
+            minValue = Math.min(minValue, arr[j]);
         }
 
         return res;
