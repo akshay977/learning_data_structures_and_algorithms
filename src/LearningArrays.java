@@ -82,6 +82,9 @@ public class LearningArrays {
 
         int ans10 = maxDiffEfficientMethod(arr11);
         System.out.println("maxDiffEfficientMethod: " + ans10);
+
+        int arr12[] = {10, 10, 20, 30, 40, 40};
+        findFrequenciesInSortedArray(arr12);
     }
 
     /*
@@ -415,5 +418,62 @@ public class LearningArrays {
         }
 
         return res;
+    }
+
+    /*
+        Time complexity: O(n^2)
+        Space complexity: O(1)
+    */
+    public static void findFrequenciesInSortedArray(int[] arr) {
+        int n = arr.length;
+        int i = 1;
+        int freq = 1;
+
+        while (i < n) {
+            while (i < n && arr[i] == arr[i-1]) {
+                freq++;
+                i++;
+            }
+            System.out.println(arr[i - 1] + ": " + freq);
+            freq = 1;
+            i++;
+        }
+    }
+
+    /*
+        Stock buy and sell: (Naive method)
+        Find maximum profit by buying and selling stock
+    */
+    public static int maxProfit(int[] price, int start, int end) {
+        if (start >= end) {
+            return 0;
+        }
+
+        int profit = 0;
+
+        for (int i = 0; i < end; i++) {
+            for (int j = i+1; j < end; j++) {
+                if (price[j] > price[i]) {
+                    int curr_profit = price[j] - price[i] + maxProfit(price, start, i - 1) + maxProfit(price, j+1, end);
+                    profit = Math.max(curr_profit, profit);
+                }
+            }
+        }
+    }
+
+    /*
+        Stock buy and sell: (Efficient method)
+        Find maximum profit by buying and selling stock
+    */
+    public static int maxProfit2(int[] price, int start, int end) {
+        int profit = 0;
+
+        for (int i = 1; i < end; i++) {
+            if (price[i] > price[i-1]) {
+                profit += price[i] - price[i-1];
+            }
+        }
+
+        return profit;
     }
 }
