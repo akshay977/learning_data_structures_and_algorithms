@@ -12,7 +12,7 @@ public class LearningArrays {
                 6. Insert at the end and delete from the end
                     can be done in O(1) time
         */
-        int arr[] = {5, 3, 8, 9, 10, 1, 99};
+//        int arr[] = {5, 3, 8, 9, 10, 1, 99};
         // int ans = search(arr, 7, 1);
         // System.out.println("search index: " + ans);
 
@@ -72,19 +72,34 @@ public class LearningArrays {
 //        leftRotateByDTimesEfficientMethod(arr10, 2);
 //        System.out.println("leftRotateByDTimesEfficientMethod: " + Arrays.toString(arr10));
 
-        int arr11[] = {7, 10, 14, 3, 6, 5, 2};
+//        int arr11[] = {7, 10, 14, 3, 6, 5, 2};
 //        printLeadersInArrayNaiveMethod(arr11);
 //        printLeadersInArrayEfficientMethod(arr11);
 
-        int ans9 = maxDiffNaiveMethod(arr11);
-        System.out.println("maxDiffNaiveMethod: " + ans9);
-//        maxDiffEfficientMethod(arr11);
+//        int ans9 = maxDiffNaiveMethod(arr11);
+//        System.out.println("maxDiffNaiveMethod: " + ans9);
+////        maxDiffEfficientMethod(arr11);
+//
+//        int ans10 = maxDiffEfficientMethod(arr11);
+//        System.out.println("maxDiffEfficientMethod: " + ans10);
+//
+//        int arr12[] = {10, 10, 20, 30, 40, 40};
+//        findFrequenciesInSortedArray(arr12);
+//
+//        int arr13[] = {3, 0, 1, 2, 5};
+//        int ans11 = getWaterNaiveMethod(arr13);
+//        System.out.println("getWaterNaiveMethod: " + ans11);
+//
+//        int arr14[] = {3, 0, 1, 2, 5};
+//        int ans12 = getWaterEfficientMethod(arr13);
+//        System.out.println("getWaterEfficientMethod: " + ans12);
 
-        int ans10 = maxDiffEfficientMethod(arr11);
-        System.out.println("maxDiffEfficientMethod: " + ans10);
+        int arr15[] = {0, 1, 1, 1, 0, 1, 0, 1, 1};
+        int ans15 = getMaxConsecutiveOnesNaiveMethod(arr15);
+        System.out.println("getMaxConsecutiveOnesNaiveMethod: " + ans15);
 
-        int arr12[] = {10, 10, 20, 30, 40, 40};
-        findFrequenciesInSortedArray(arr12);
+        int ans16 = getMaxConsecutiveOnesEfficientMethod(arr15);
+        System.out.println("getMaxConsecutiveOnesEfficientMethod: " + ans16);
     }
 
     /*
@@ -459,6 +474,8 @@ public class LearningArrays {
                 }
             }
         }
+
+        return profit;
     }
 
     /*
@@ -475,5 +492,100 @@ public class LearningArrays {
         }
 
         return profit;
+    }
+
+    /*
+        Trapping Rain water (Naive method)
+        Time complexity: Theta(n^2)
+    */
+    public static int getWaterNaiveMethod(int arr[]) {
+        int res = 0;
+        int n = arr.length;
+
+        for (int i = 1; i < n-1; i++) {
+            int lmax = arr[i];
+            for (int j = 0; j < i; j++) {
+                lmax = Math.max(lmax, arr[j]);
+            }
+
+            int rmax = arr[i];
+            for (int j = i + 1; j < n; j++) {
+                rmax = Math.max(rmax, arr[j]);
+            }
+
+            res += Math.min(lmax, rmax) - arr[i];
+        }
+
+        return res;
+    }
+
+    /*
+        Trapping rain water (Efficient method)
+        Time complexity: Theta(n)
+    */
+    public static int getWaterEfficientMethod(int arr[]) {
+        int res = 0;
+        int n = arr.length;
+        int lmax[] = new int[n];
+        int rmax[] = new int[n];
+
+        lmax[0] = arr[0];
+        for (int i = 1; i < n; i++) {
+            lmax[i] = Math.max(lmax[i-1], arr[i]);
+        }
+
+        rmax[n-1] = arr[n-1];
+        for (int i = n-2; i > 0; i--) {
+            rmax[i] = Math.max(rmax[i + 1], arr[i]);
+        }
+
+        for (int i = 1; i < n-1; i++) {
+            res += Math.min(lmax[i], rmax[i]) - arr[i];
+        }
+
+        return res;
+    }
+
+    /*
+        Get maximum consecutive ones (Naive method)
+        Time complexity: O(n^2)
+        Space complexity: O(1)
+    */
+    public static int getMaxConsecutiveOnesNaiveMethod(int arr[]) {
+        int res = 0;
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            int curr = 0;
+
+            for (int j = i; j < n; j++) {
+                if (arr[j] == 1) curr++;
+                else break;
+            }
+            res = Math.max(curr, res);
+        }
+
+        return res;
+    }
+
+    /*
+        Get maximum consecutive ones (Efficient method)
+        Time complexity: O(n)
+        Space complexity: O(1)
+    */
+    public static int getMaxConsecutiveOnesEfficientMethod(int arr[]) {
+        int res = 0, curr = 0;
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 0) {
+                curr = 0;
+            } else {
+                curr++;
+                res = Math.max(res, curr);
+            }
+        }
+
+        return res;
     }
 }
