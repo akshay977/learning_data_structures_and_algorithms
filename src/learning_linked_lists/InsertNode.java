@@ -14,6 +14,10 @@ public class InsertNode {
     static class LinkedList {
         Node head;
 
+        LinkedList() {
+            head = null;
+        }
+
         public int getHeadValue() {
             if (head == null) {
                 return -1;
