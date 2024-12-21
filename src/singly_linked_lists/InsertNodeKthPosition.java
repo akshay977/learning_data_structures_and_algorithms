@@ -1,4 +1,4 @@
-package learning_linked_lists;
+package singly_linked_lists;
 
 public class InsertNodeKthPosition {
     public static class Node {
