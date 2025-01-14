@@ -11,7 +11,7 @@ class NextSmallerElement {
 //        Scanner sc = new Scanner(System.in);
 //        int n = sc.nextInt();
 //        int[] arr = {1, 3, 5, 1, 3};
-            int[] arr = {2, 6, 8, 4};
+        int[] arr = {2, 6, 8, 4};
         int n = arr.length;
 //        for (int i = 0; i < n; i++) {
 //            arr[i] = sc.nextInt();
