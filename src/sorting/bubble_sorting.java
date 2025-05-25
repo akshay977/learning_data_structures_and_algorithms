@@ -1,7 +1,11 @@
 package sorting;
 
 import java.util.Arrays;
-
+/*
+    Bubble sorting is basically swaping each pair of elements
+    based on ascending or descending order by traversing to push
+    the smallest or largest element to the end of the array.
+*/
 public class bubble_sorting {
     public static void main(String[] args) {
         int[] arr = {6, 5, 3, 1, 8, 7, 2, 4};
