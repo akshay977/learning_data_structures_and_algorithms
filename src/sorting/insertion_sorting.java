@@ -5,7 +5,7 @@ import java.util.Arrays;
 /*
     Insertion sorting the current element is inserted
     into the right position after displacing the elements
-    moving from right to left.
+    from that position to the right moving from right to left.
 
     Time complexity: O(n2)
     Space complexity: O(1)
