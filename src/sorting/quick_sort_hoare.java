@@ -2,7 +2,7 @@ package sorting;
 
 public class quick_sort_hoare {
     public static void main(String[] args) {
-        int[] arr = {5, 3, 8, 4, 2, 7, 1, 10};
+        int[] arr = {5, 3, 8, 4, 2, 7, 1, 6};
         quickSort(arr, 0, arr.length - 1);
 
         for (int ele: arr)
