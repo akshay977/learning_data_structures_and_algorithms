@@ -33,7 +33,7 @@ public class counting_sort {
 
         int[] outputArr = new int[n];
 
-        // Traverse the original array from last, get position from prefix sum array
+        // Traverse the original array from the end, get position from prefix sum array
         // and store the value in output array accordingly
         for (int i = n-1; i >= 0; i--) {
             outputArr[countArr[arr[i]]-1] = arr[i];
